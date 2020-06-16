@@ -1,4 +1,4 @@
-import 'package:flutter_swiper_moolban/src/swiper_plugin.dart';
+import '../src/swiper_plugin.dart';
 import 'package:transformer_page_view/transformer_page_view.dart';
 
 class SwiperController extends IndexController {

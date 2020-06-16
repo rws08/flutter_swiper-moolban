@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_page_indicator/flutter_page_indicator.dart';
-import 'package:flutter_swiper_moolban/flutter_swiper_moolban.dart';
+import '../flutter_swiper_moolban.dart';
 
 /// plugin to display swiper components
 ///
