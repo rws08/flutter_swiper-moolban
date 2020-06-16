@@ -108,6 +108,8 @@ class Swiper extends StatefulWidget {
   // This value is valid when viewportFraction is set and < 1.0
   final double fade;
 
+  final double tinderOffset;
+
   final PageIndicatorLayout indicatorLayout;
 
   Swiper({
@@ -145,6 +147,7 @@ class Swiper extends StatefulWidget {
     this.outer: false,
     this.scale,
     this.fade,
+    this.tinderOffset: 10,
   })  : assert(itemBuilder != null || transformer != null,
             "itemBuilder and transformItemBuilder must not be both null"),
         assert(
@@ -186,6 +189,7 @@ class Swiper extends StatefulWidget {
     double itemWidth,
     bool outer: false,
     double scale: 1.0,
+    double tinderOffset: 10.0,
   }) {
     assert(children != null, "children must not be null");
 
@@ -199,6 +203,7 @@ class Swiper extends StatefulWidget {
         itemWidth: itemWidth,
         outer: outer,
         scale: scale,
+        tinderOffset: tinderOffset,
         autoplay: autoplay,
         autoplayDelay: autoplayDelay,
         autoplayDisableOnInteraction: autoplayDisableOnInteraction,
@@ -250,6 +255,7 @@ class Swiper extends StatefulWidget {
     double itemWidth,
     bool outer: false,
     double scale: 1.0,
+    double tinderOffset: 10.0,
   }) {
     return new Swiper(
         transformer: transformer,
@@ -261,6 +267,7 @@ class Swiper extends StatefulWidget {
         itemWidth: itemWidth,
         outer: outer,
         scale: scale,
+        tinderOffset: tinderOffset,
         autoplay: autoplay,
         autoplayDelay: autoplayDelay,
         autoplayDisableOnInteraction: autoplayDisableOnInteraction,
@@ -536,6 +543,8 @@ class _SwiperState extends _SwiperTimerMixin {
         onIndexChanged: _onIndexChanged,
         controller: _controller,
         scrollDirection: widget.scrollDirection,
+        scale: widget.scale,
+        tinderOffset: widget.tinderOffset,
       );
     } else if (widget.layout == SwiperLayout.CUSTOM) {
       return new _CustomLayoutSwiper(
@@ -702,6 +711,8 @@ class _TinderSwiper extends _SubSwiper {
     bool loop,
     int itemCount,
     Axis scrollDirection,
+    this.scale,
+    this.tinderOffset: 10,
   })  : assert(itemWidth != null && itemHeight != null),
         super(
             loop: loop,
@@ -716,6 +727,9 @@ class _TinderSwiper extends _SubSwiper {
             onIndexChanged: onIndexChanged,
             itemCount: itemCount,
             scrollDirection: scrollDirection);
+
+  final double scale;
+  final double tinderOffset;
 
   @override
   State<StatefulWidget> createState() {
@@ -786,30 +800,39 @@ class _TinderState extends _CustomLayoutStateBase<_TinderSwiper> {
     _startIndex = -3;
     _animationCount = 5;
     opacity = [0.0, 0.9, 0.9, 1.0, 0.0, 0.0];
-    scales = [0.80, 0.80, 0.85, 0.90, 1.0, 1.0, 1.0];
     rotates = [0.0, 0.0, 0.0, 0.0, 20.0, 25.0];
     _updateValues();
   }
 
   void _updateValues() {
+    scales = [
+      widget.scale - 0.15,
+      widget.scale - 0.15,
+      widget.scale - 0.1,
+      widget.scale,
+      widget.scale + 0.1,
+      widget.scale + 0.1,
+      widget.scale + 0.1
+    ];
+
     if (widget.scrollDirection == Axis.horizontal) {
       offsetsX = [0.0, 0.0, 0.0, 0.0, _swiperWidth, _swiperWidth];
       offsetsY = [
         0.0,
         0.0,
-        -5.0,
-        -10.0,
-        -15.0,
-        -20.0,
+        -1 * (widget.tinderOffset - 5),
+        -1 * (widget.tinderOffset),
+        -1 * (widget.tinderOffset + 5),
+        -1 * (widget.tinderOffset + 10),
       ];
     } else {
       offsetsX = [
         0.0,
         0.0,
-        5.0,
-        10.0,
-        15.0,
-        20.0,
+        widget.tinderOffset - 5,
+        widget.tinderOffset,
+        widget.tinderOffset + 5,
+        widget.tinderOffset + 10,
       ];
 
       offsetsY = [0.0, 0.0, 0.0, 0.0, _swiperHeight, _swiperHeight];
@@ -827,6 +850,9 @@ class _TinderState extends _CustomLayoutStateBase<_TinderSwiper> {
     Alignment alignment = widget.scrollDirection == Axis.horizontal
         ? Alignment.bottomCenter
         : Alignment.centerLeft;
+    var padding = widget.scrollDirection == Axis.horizontal
+        ? EdgeInsets.fromLTRB(0, fy.abs(), 0, 0)
+        : EdgeInsets.fromLTRB(0, 0, f.abs(), 0);
 
     return new Opacity(
       opacity: o,
@@ -838,9 +864,10 @@ class _TinderState extends _CustomLayoutStateBase<_TinderSwiper> {
           child: new Transform.scale(
             scale: s,
             alignment: alignment,
-            child: new SizedBox(
+            child: Container(
               width: widget.itemWidth ?? double.infinity,
               height: widget.itemHeight ?? double.infinity,
+              padding: padding,
               child: widget.itemBuilder(context, realIndex),
             ),
           ),
