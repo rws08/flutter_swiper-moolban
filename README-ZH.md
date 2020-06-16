@@ -10,37 +10,38 @@
     <a href="https://github.com/jzoom/flutter_swiper/pulls">
         <img src="https://img.shields.io/badge/PRs-Welcome-brightgreen.svg" alt="PRs Welcome" />
     </a>
-    <a href="https://pub.flutter-io.cn/packages/flutter_swiper">
+    <a href="https://pub.dartlang.org/packages/flutter_swiper">
         <img src="https://img.shields.io/pub/v/flutter_swiper.svg" alt="pub package" />
     </a>
     <a target="_blank" href="https://shang.qq.com/wpa/qunwpa?idkey=a71a2504cda4cc9ace3320f2dc588bdae928abc671e903463caeb71ec9302c2c"><img border="0" src="https://pub.idqqimg.com/wpa/images/group.png" alt="best-flutter" title="best-flutter"></a>
 </p>
 <p align="center">
-    <a href="https://github.com/jzoom/flutter_swiper">
-        <b>英文说明</b>
+    <a href="https://github.com/jzoom/flutter_swiper/blob/master/README-ZH.md">
+        <b>中文说明</b>
     </a>
 </p>
 
 
+
 # flutter_swiper
 
-flutter最强大的siwiper, 多种布局方式，无限轮播，Android和IOS双端适配.
-
-# :sparkles::sparkles: New Features: 分页组件
-
-正在使用这个项目作为分页： [flutter_page_indicator](https://github.com/best-flutter/flutter_page_indicator)  .
-
-# :sparkles::sparkles: New Features: 视差
-
-我们在 Swiper 中也像android一样支持了 `PageTransformer`, 只要给Swiper设置一下 `transformer` 属性就行,
-这里返回一个被转换的组件给Swiper. 目前仅仅支持 `DEFAULT`布局.
-感谢 @FlutterRocks ,棒棒哒 👏.
-
-正在使用这个项目作为视差 [transformer_page_view](https://github.com/best-flutter/transformer_page_view)  .
+The best swiper for flutter , with multiple layouts, infinite loop. Compatible with Android & iOS.
 
 
+# :sparkles::sparkles: New Features:Layout for pagination.
 
-# :sparkles::sparkles: 新功能
+We are using this project [flutter_page_indicator](https://github.com/best-flutter/flutter_page_indicator) now .
+
+# :sparkles::sparkles: New Features:PageTransformer
+
+Finally, we have `PageTransformer` like android, just set a `transformer` to `Swiper`,
+it returns a widget that has been transformed. For now, only support for layout `DEFAULT`.
+Thanks to @FlutterRocks ,you've done great job 👏.
+
+We are using this project [transformer_page_view](https://github.com/best-flutter/transformer_page_view) now .
+
+
+# :sparkles::sparkles: New Features:Layout
 
 
 ![](https://github.com/jzoom/images/raw/master/layout1.gif)
@@ -49,10 +50,10 @@ flutter最强大的siwiper, 多种布局方式，无限轮播，Android和IOS双
 
 ![](https://github.com/jzoom/images/raw/master/layout3.gif)
 
-[更多](#内建的布局)
+[See More](#build-in-layouts)
 
 
-# 截图
+# Showcases
 
 ![Horizontal](https://github.com/jzoom/flutter_swiper/raw/master/example/res/1.gif)
 
@@ -66,69 +67,54 @@ flutter最强大的siwiper, 多种布局方式，无限轮播，Android和IOS双
 
 ![Example](https://github.com/jzoom/images/raw/master/swiper-example.gif)
 
-[更多](#代码)
+[See More](#codes)
 
-## 功能路线
+## Roadmap
 
-1.x.x 功能实现：
+>see:[ROADMAP.md](https://github.com/jzoom/flutter_swiper/blob/master/ROADMAP.md)
 
-- [x] 无限循环轮播
-- [x] 控制按钮
-- [x] 分页指示器
-- [x] 非无限循环模式
-- [x] 单元测试
-- [x] 例子
-- [x] 滚动方向
-- [x] 可定制控制按钮
-- [x] 可定制分页
-- [x] 自动播放
-- [x] 控制器
-- [x] 外部分页指示器
-- [ ] 更多布局方式
+## Changelogs
 
+>see:[CHANGELOG.md](https://github.com/jzoom/flutter_swiper/blob/master/CHANGELOG.md)
 
-## 更新日志
+## Getting Started
 
->参考:[CHANGELOG.md](https://github.com/jzoom/flutter_swiper/blob/master/CHANGELOG-ZH.md)
+- [Installation](#installation)
+- [Basic Usage](#basic-usage)
+- [Constructor](#constructor)
+  + [Basic](#basic)
+  + [Pagination](#pagination)
+  + [Control buttons](#control-buttons)
+  + [Controller](#controller)
+  + [Autoplay](#autoplay)
+- [Build in layouts](#build-in-layouts)
+- [Codes](#codes)
 
-## 目录
+### Installation
 
-- [安装](#安装)
-- [基本使用](#基本使用)
-- [构建](#构建)
-  + [基本构造函数](#基本构造函数)
-  + [分页指示器](#分页指示器)
-  + [控制按钮](#控制按钮)
-  + [控制器](#控制器)
-  + [自动播放](#自动播放)
-+ [内建的布局](#内建的布局)
-+ [一些常用代码示例](#代码)
-
-### 安装
-
-增加
+Add 
 
 ```bash
 
 flutter_swiper : ^lastest_version
 
 ```
-到项目根目录下的 pubspec.yaml ,并且根目录运行命令行 
+to your pubspec.yaml ,and run 
 
 ```bash
 flutter packages get 
 ```
+in your project's root directory.
 
+### Basic Usage
 
-### 基本使用
-
-使用命令行创建一个新项目:
+Create a new project with command
 
 ```
 flutter create myapp
 ```
 
-编辑 lib/main.dart:
+Edit lib/main.dart like this:
 
 ```
 
@@ -184,36 +170,36 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
 
-### 构建
+### Constructor
 
 
-#### 基本参数
+#### Basic
 
-| 参数            | 默认值             |           描述     |
-| :-------------- |:-----------------:| :------------------------|
-| scrollDirection | Axis.horizontal  |滚动方向，设置为Axis.vertical如果需要垂直滚动   |
-| loop            | true             |无限轮播模式开关                              |
-| index           | 0                |初始的时候下标位置                            |
-| autoplay        | false             |自动播放开关. |
-| onIndexChanged  | void onIndexChanged(int index)  | 当用户手动拖拽或者自动播放引起下标改变的时候调用 |
-| onTap           | void onTap(int index)  | 当用户点击某个轮播的时候调用 |
-| duration        | 300.0            | 动画时间，单位是毫秒 |
-| pagination      | null             | 设置 `new SwiperPagination()` 展示默认分页指示器
-| control | null | 设置 `new SwiperControl()` 展示默认分页按钮
-
-
-#### 分页指示器
-
-分页指示器继承自 `SwiperPlugin`,`SwiperPlugin` 为 `Swiper` 提供额外的界面.设置为`new SwiperPagination()` 展示默认分页.
-
-
-| 参数            | 默认值             |           描述     |
+| Parameter  | Default   | Description |
 | :------------ |:---------------:| :-----|
-| alignment | Alignment.bottomCenter  | 如果要将分页指示器放到其他位置，那么可以修改这个参数 |
-| margin | const EdgeInsets.all(10.0) | 分页指示器与容器边框的距离 |
-| builder | SwiperPagination.dots | 目前已经定义了两个默认的分页指示器样式： `SwiperPagination.dots` 、 `SwiperPagination.fraction`，都可以做进一步的自定义. |
+| scrollDirection | Axis.horizontal  | If `Axis.horizontal`, the scroll view's children are arranged horizontally in a row instead of vertically in a column. |
+| loop | true |Set to `false` to disable continuous loop mode. |
+| index | 0 |  Index number of initial slide. |
+| autoplay | false |Set to `true` enable auto play mode. |
+| onIndexChanged | void onIndexChanged(int index)  | Called with the new index when the user swiped or autoplay |
+| onTap | void onTap(int index)  | Called when user tap ui. |
+| duration | 300.0  | The milliscends of every transaction animation costs  |
+| pagination | null | set `new SwiperPagination()` to show default pagination
+| control | null | set `new SwiperControl()` to show default control buttons
 
-如果需要定制自己的分页指示器，那么可以这样写：
+
+#### Pagination
+
+The pagination extends from `SwiperPlugin`,the `SwiperPlugin` provides extra ui for `Swiper`.Set `new SwiperPagination()` to show default pagination.
+
+
+| Parameter  | Default   | Description |
+| :------------ |:---------------:| :-----|
+| alignment | Alignment.bottomCenter  | Change this value if you what to put pagination in other place |
+| margin | const EdgeInsets.all(10.0) | The distance between inner side of the parent container. |
+| builder | SwiperPagination.dots | There are two default styles `SwiperPagination.dots` and `SwiperPagination.fraction`,both can be customized. |
+
+If you'd like to customize your own pagination, you can do like this:
 
 ```
 new Swiper(
@@ -229,45 +215,43 @@ new Swiper(
 
 
 
-#### 控制按钮
+#### Control buttons
 
-控制按钮组件也是继承自 `SwiperPlugin`,设置 `new SwiperControl()` 展示默认控制按钮.
+The control also extends from `SwiperPlugin`,set `new SwiperControl()` to show default control buttons.
 
 
-| 参数            | 默认值             |           描述     |
+| Parameter  | Default   | Description |
 | :------------ |:---------------:| :-----|
-| iconPrevious | Icons.arrow_back_ios  | 上一页的IconData |
-| iconNext | Icons.arrow_forward_ios | 下一页的IconData |
-| color | Theme.of(context).primaryColor | 控制按钮颜色 |
-| size | 30.0                           | 控制按钮的大小 |
-| padding | const EdgeInsets.all(5.0) | 控制按钮与容器的距离 |
+| iconPrevious | Icons.arrow_back_ios  | The icon data to display `previous` control button |
+| iconNext | Icons.arrow_forward_ios | The icon data to display `next`. |
+| color | Theme.of(context).primaryColor | Control button color |
+| size | 30.0 | Control button size |
+| padding | const EdgeInsets.all(5.0) | Control button padding |
 
 
-#### 控制器(SwiperController)
+#### Controller
 
-`SwiperController` 用于控制 Swiper的`index`属性, 停止和开始自动播放. 通过 `new SwiperController()` 创建一个SwiperController实例，并保存，以便将来能使用。
+The `Controller` is used to control the `index` of the Swiper, start or stop autoplay.You can create a controller by `new SwiperController()` and save the instance by futher usage.
 
 
-| 方法            | 描述     |
+| Method  | Description |
 | :------------ |:-----|
-| void move(int index, {bool animation: true}) | 移动到指定下标，设置是否播放动画|
-| void next({bool animation: true}) | 下一页 |
-| void previous({bool animation: true}) | 上一页 |
-| void startAutoplay() | 开始自动播放 |
-| void stopAutoplay() | 停止自动播放 |
+| void move(int index, {bool animation: true}) | Move to the spicified `index`,with animation or not |
+| void next({bool animation: true}) | Move to next |
+| void previous({bool animation: true}) | Move to previous |
+| void startAutoplay() | Start autoplay |
+| void stopAutoplay() | Stop autoplay |
 
 
 
-#### 自动播放
+#### Autoplay
 
-| 参数            | 默认值             |           描述     |
+| Parameter  | Default   | Description |
 | :------------ |:---------------:| :-----|
-| autoplayDely | 3000  | 自动播放延迟毫秒数. |
-| autoplayDisableOnInteraction | true | 当用户拖拽的时候，是否停止自动播放. |
+| autoplayDelay | 3000  | Autoplay delay milliseconds. |
+| autoplayDisableOnInteraction | true | If set true, `autoplay` is disabled when use swipes. |
 
-
-
-## 内建的布局
+## Build in layouts
 ![](https://github.com/jzoom/images/raw/master/layout1.gif)
 
 ```
@@ -321,10 +305,9 @@ new Swiper(
 ```
 
 
-
 ![](https://github.com/jzoom/images/raw/master/layout4.gif)
 
-构建你自己的动画十分简单:
+Very easy to create you own custom animation:
 ```
 
  new Swiper(
@@ -355,17 +338,18 @@ new Swiper(
 
 ```
 
-`CustomLayoutOption` 被设计用来描述布局和动画,很简单的可以指定每一个元素的状态.
+The `CustomLayoutOption` is designed to describe animations.
+It is very easy to specify every state of items in Swiper.
 
 ```
 new CustomLayoutOption(
-      startIndex: -1,  /// 开始下标
-      stateCount: 3    /// 下面的数组长度 
-  ).addRotate([        //  每个元素的角度
+      startIndex: -1,  /// Which index is the first item of array below      
+      stateCount: 3    /// array length 
+  ).addRotate([        // rotation of every item 
     -45.0/180,
     0.0,
     45.0/180
-  ]).addTranslate([           /// 每个元素的偏移
+  ]).addTranslate([           /// offset of every item
     new Offset(-370.0, -40.0),
     new Offset(0.0, 0.0),
     new Offset(370.0, -40.0)
@@ -373,8 +357,7 @@ new CustomLayoutOption(
 
 ```
 
-## 代码
-
+## Codes
 
 ![Example](https://github.com/jzoom/images/raw/master/swiper-example.gif)
 
@@ -417,6 +400,13 @@ new ConstrainedBox(
 
 
 
-这里可以找到所有的定制选项
+
+
+You can find all custom options here:
 
 >https://github.com/jzoom/flutter_swiper/blob/master/example/lib/src/ExampleCustom.dart
+
+
+
+
+

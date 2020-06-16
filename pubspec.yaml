@@ -1,7 +1,6 @@
-name: flutter_swiper-moolban
+name: flutter_swiper_moolban
 description: The best swiper(carousel) for flutter, with multiple layouts, infinite loop. Compatible with Android & iOS.
-version: 1.1.6
-author: 
+version: 1.1.6+1
 homepage: https://github.com/rws08/flutter_swiper-moolban
 
 dependencies:
@@ -12,8 +11,8 @@ dependencies:
   flutter_page_indicator: ^0.0.3
 
 environment:
-  sdk: ">=2.0.0-dev.48.0 <3.0.0"
-  flutter: ">=0.1.4 <3.0.0"
+  sdk: ">=2.6.0 <3.9.1"
+  flutter: ">=1.12.13+hotfix.4 <2.0.0"
 
 dev_dependencies:
   flutter_test:
