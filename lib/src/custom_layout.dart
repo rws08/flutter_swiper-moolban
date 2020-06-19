@@ -127,13 +127,18 @@ abstract class _CustomLayoutStateBase<T extends _SubSwiper> extends State<T>
 
   bool _lockScroll = false;
 
-  void _move(double position, {int nextIndex}) async {
+  void _move(double position, {int nextIndex, bool move = false}) async {
     if (_lockScroll) return;
     try {
       _lockScroll = true;
-      await _animationController.animateTo(position,
-          duration: new Duration(milliseconds: widget.duration),
-          curve: widget.curve);
+      if (move) {
+        await _animationController.animateTo(position,
+            duration: new Duration(milliseconds: 0), curve: widget.curve);
+      } else {
+        await _animationController.animateTo(position,
+            duration: new Duration(milliseconds: widget.duration),
+            curve: widget.curve);
+      }
       if (nextIndex != null) {
         widget.onIndexChanged(widget.getCorrectIndex(nextIndex));
       }
@@ -182,8 +187,10 @@ abstract class _CustomLayoutStateBase<T extends _SubSwiper> extends State<T>
         _move(0.0, nextIndex: nextIndex);
         break;
       case IndexController.MOVE:
-        throw new Exception(
-            "Custom layout does not support SwiperControllerEvent.MOVE_INDEX yet!");
+        int nextIndex = widget.index;
+        if (nextIndex == _currentIndex) return;
+        _move(0.0, nextIndex: nextIndex, move: true);
+        break;
       case SwiperController.STOP_AUTOPLAY:
       case SwiperController.START_AUTOPLAY:
         break;
