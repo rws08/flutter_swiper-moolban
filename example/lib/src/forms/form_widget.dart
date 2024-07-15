@@ -1,48 +1,62 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class FormWidget extends StatelessWidget {
   final String label;
 
   final Widget child;
 
-  FormWidget({this.label, this.child});
+  const FormWidget({
+    Key? key,
+    required this.label,
+    required this.child,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return new Padding(
-        padding: new EdgeInsets.all(5.0),
-        child: new Row(
-          children: <Widget>[
-            new Text(label, style: new TextStyle(fontSize: 14.0)),
-            new Expanded(
-                child:
-                    new Align(alignment: Alignment.centerRight, child: child))
-          ],
-        ));
+    return Padding(
+      padding: const EdgeInsets.all(5.0),
+      child: Row(
+        children: <Widget>[
+          Text(label, style: const TextStyle(fontSize: 14.0)),
+          Expanded(
+            child: Align(
+              alignment: Alignment.centerRight,
+              child: child,
+            ),
+          )
+        ],
+      ),
+    );
   }
 }
 
 class FormSelect<T> extends StatefulWidget {
   final String placeholder;
   final ValueChanged<T> valueChanged;
-  final List<dynamic> values;
-  final dynamic value;
+  final List<T> values;
+  final T value;
 
-  FormSelect({this.placeholder, this.valueChanged, this.value, this.values});
+  const FormSelect({
+    Key? key,
+    required this.placeholder,
+    required this.valueChanged,
+    required this.value,
+    required this.values,
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return _FormSelectState();
+    return _FormSelectState<T>();
   }
 }
 
-class _FormSelectState extends State<FormSelect> {
+class _FormSelectState<T> extends State<FormSelect<T>> {
   int _selectedIndex = 0;
 
   @override
   void initState() {
-    for (int i = 0, c = widget.values.length; i < c; ++i) {
+    for (int i = 0; i < widget.values.length; ++i) {
       if (widget.values[i] == widget.value) {
         _selectedIndex = i;
         break;
@@ -54,57 +68,55 @@ class _FormSelectState extends State<FormSelect> {
 
   @override
   Widget build(BuildContext context) {
-    String placeholder = widget.placeholder;
-    List<dynamic> values = widget.values;
+    final placeholder = widget.placeholder;
+    final values = widget.values;
 
-    return new Container(
-      child: new InkWell(
-        child: new Text(_selectedIndex < 0
-            ? placeholder
-            : values[_selectedIndex].toString()),
-        onTap: () {
-          _selectedIndex = 0;
-          showBottomSheet(
-              context: context,
-              builder: (BuildContext context) {
-                return new SizedBox(
-                  height: values.length * 30.0 + 200.0,
-                  child: new Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      new SizedBox(
-                        height: values.length * 30.0 + 70.0,
-                        child: new CupertinoPicker(
-                          itemExtent: 30.0,
-                          children: values.map((dynamic value) {
-                            return new Text(value.toString());
-                          }).toList(),
-                          onSelectedItemChanged: (int index) {
-                            _selectedIndex = index;
-                          },
-                        ),
+    return InkWell(
+      child: Text(
+          _selectedIndex < 0 ? placeholder : values[_selectedIndex].toString()),
+      onTap: () {
+        _selectedIndex = 0;
+        showBottomSheet(
+            context: context,
+            builder: (context) {
+              return SizedBox(
+                height: values.length * 30.0 + 200.0,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    SizedBox(
+                      height: values.length * 30.0 + 70.0,
+                      child: CupertinoPicker(
+                        itemExtent: 30.0,
+                        children: values.map((value) {
+                          return Text(value.toString());
+                        }).toList(),
+                        onSelectedItemChanged: (index) {
+                          _selectedIndex = index;
+                        },
                       ),
-                      new Center(
-                        child: new RaisedButton(
-                          onPressed: () {
-                            if (_selectedIndex >= 0) {
-                              widget
-                                  .valueChanged(widget.values[_selectedIndex]);
-                            }
+                    ),
+                    Center(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          if (_selectedIndex >= 0) {
+                            widget.valueChanged(
+                              widget.values[_selectedIndex],
+                            );
+                          }
 
-                            setState(() {});
+                          setState(() {});
 
-                            Navigator.of(context).pop();
-                          },
-                          child: new Text("ok"),
-                        ),
-                      )
-                    ],
-                  ),
-                );
-              });
-        },
-      ),
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text('ok'),
+                      ),
+                    )
+                  ],
+                ),
+              );
+            });
+      },
     );
   }
 }
@@ -116,7 +128,14 @@ class NumberPad extends StatelessWidget {
   final num min;
   final ValueChanged<num> onChangeValue;
 
-  NumberPad({this.number, this.step, this.onChangeValue, this.max, this.min});
+  const NumberPad({
+    Key? key,
+    required this.number,
+    required this.step,
+    required this.onChangeValue,
+    required this.max,
+    required this.min,
+  }) : super(key: key);
 
   void onAdd() {
     onChangeValue(number + step > max ? max : number + step);
@@ -128,15 +147,15 @@ class NumberPad extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Row(
+    return Row(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        new IconButton(icon: new Icon(Icons.exposure_neg_1), onPressed: onSub),
-        new Text(
+        IconButton(icon: const Icon(Icons.exposure_neg_1), onPressed: onSub),
+        Text(
           number is int ? number.toString() : number.toStringAsFixed(1),
-          style: new TextStyle(fontSize: 14.0),
+          style: const TextStyle(fontSize: 14.0),
         ),
-        new IconButton(icon: new Icon(Icons.exposure_plus_1), onPressed: onAdd)
+        IconButton(icon: const Icon(Icons.exposure_plus_1), onPressed: onAdd)
       ],
     );
   }

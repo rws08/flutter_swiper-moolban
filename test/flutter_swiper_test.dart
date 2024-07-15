@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_swiper_moolban/flutter_swiper_moolban.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   testWidgets('Default Swiper', (WidgetTester tester) async {
@@ -8,7 +8,7 @@ void main() {
     await tester.pumpWidget(MaterialApp(
         home: Swiper(
             itemBuilder: (context, index) {
-              return Text("0");
+              return const Text("0");
             },
             itemCount: 10)));
 
@@ -21,7 +21,7 @@ void main() {
         home: Swiper(
       onTap: (int inde) {},
       itemBuilder: (context, index) {
-        return Text("0");
+        return const Text("0");
       },
       itemCount: 10,
       loop: false,
@@ -34,7 +34,7 @@ void main() {
     // Build our app and trigger a frame.
     await tester.pumpWidget(MaterialApp(
         home: Swiper.children(
-      children: <Widget>[Text("0"), Text("1")],
+      children: const <Widget>[Text("0"), Text("1")],
     )));
 
     expect(find.text("0", skipOffstage: false), findsOneWidget);
@@ -44,7 +44,7 @@ void main() {
     // Build our app and trigger a frame.
     await tester.pumpWidget(MaterialApp(
         home: Swiper.list(
-      list: ["0", "1"],
+      list: const ["0", "1"],
       builder: (BuildContext context, dynamic data, int index) {
         return Text(data);
       },
@@ -60,11 +60,11 @@ void main() {
         home: Swiper(
       controller: controller,
       itemBuilder: (context, index) {
-        return Text("0");
+        return const Text("0");
       },
       itemCount: 10,
-      pagination: SwiperPagination(),
-      control: SwiperControl(),
+      pagination: const SwiperPagination(),
+      control: const SwiperControl(),
     )));
 
     expect(find.text("0", skipOffstage: false), findsOneWidget);
@@ -83,22 +83,23 @@ void main() {
         home: Swiper(
       controller: controller,
       itemBuilder: (context, index) {
-        return Text("0");
+        return const Text("0");
       },
       itemCount: 10,
       pagination: SwiperCustomPagination(
           builder: (BuildContext context, SwiperPluginConfig config) {
         return ConstrainedBox(
+          constraints: const BoxConstraints.expand(height: 50.0),
           child: Row(
             children: <Widget>[
               Text(
                 "${titles[config.activeIndex]} ${config.activeIndex + 1}/${config.itemCount}",
-                style: TextStyle(fontSize: 20.0),
+                style: const TextStyle(fontSize: 20.0),
               ),
               Expanded(
                 child: Align(
                   alignment: Alignment.centerRight,
-                  child: DotSwiperPaginationBuilder(
+                  child: const DotSwiperPaginationBuilder(
                           color: Colors.black12,
                           activeColor: Colors.black,
                           size: 10.0,
@@ -108,10 +109,9 @@ void main() {
               )
             ],
           ),
-          constraints: BoxConstraints.expand(height: 50.0),
         );
       }),
-      control: SwiperControl(),
+      control: const SwiperControl(),
     )));
 
     controller.startAutoplay();
@@ -134,11 +134,11 @@ void main() {
         home: Swiper(
       controller: controller,
       itemBuilder: (context, index) {
-        return Text("0");
+        return const Text("0");
       },
       itemCount: 10,
-      pagination: SwiperPagination(builder: SwiperPagination.fraction),
-      control: SwiperControl(),
+      pagination: const SwiperPagination(builder: SwiperPagination.fraction),
+      control: const SwiperControl(),
     )));
 
     expect(find.text("0", skipOffstage: false), findsOneWidget);
@@ -151,11 +151,11 @@ void main() {
         home: Swiper(
       controller: controller,
       itemBuilder: (context, index) {
-        return Text("0");
+        return const Text("0");
       },
       itemCount: 0,
-      pagination: SwiperPagination(builder: SwiperPagination.fraction),
-      control: SwiperControl(),
+      pagination: const SwiperPagination(builder: SwiperPagination.fraction),
+      control: const SwiperControl(),
     )));
 
     expect(find.text("0", skipOffstage: false), findsNothing);

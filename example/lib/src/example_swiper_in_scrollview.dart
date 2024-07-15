@@ -2,19 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swiper_moolban/flutter_swiper_moolban.dart';
 
 class ExampleSwiperInScrollView extends StatefulWidget {
+  const ExampleSwiperInScrollView({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
-    return new _ExampleState();
+    return _ExampleState();
   }
 }
 
 class _ExampleState extends State<ExampleSwiperInScrollView>
     with TickerProviderStateMixin {
-  AnimationController controller;
-  Animation<double> _animation10;
-  Animation<double> _animation11;
-  Animation<double> _animation12;
-  Animation<double> _animation13;
+  late AnimationController controller;
+  late Animation<double> _animation10;
+  late Animation<double> _animation11;
+  late Animation<double> _animation12;
+  late Animation<double> _animation13;
 
   _ExampleState();
 
@@ -27,20 +29,20 @@ class _ExampleState extends State<ExampleSwiperInScrollView>
 
   @override
   void initState() {
-    controller = new AnimationController(vsync: this);
-    _animation10 = new Tween(begin: 0.0, end: 1.0).animate(controller);
-    _animation11 = new Tween(begin: 0.0, end: 1.0).animate(controller);
-    _animation12 = new Tween(begin: 0.0, end: 1.0).animate(controller);
-    _animation13 = new Tween(begin: 0.0, end: 1.0).animate(controller);
-    controller.animateTo(1.0, duration: new Duration(seconds: 3));
+    controller = AnimationController(vsync: this);
+    _animation10 = Tween(begin: 0.0, end: 1.0).animate(controller);
+    _animation11 = Tween(begin: 0.0, end: 1.0).animate(controller);
+    _animation12 = Tween(begin: 0.0, end: 1.0).animate(controller);
+    _animation13 = Tween(begin: 0.0, end: 1.0).animate(controller);
+    controller.animateTo(1.0, duration: const Duration(seconds: 3));
     super.initState();
   }
 
   Widget _buildDynamicCard() {
-    return new Card(
+    return Card(
       elevation: 2.0,
       color: Colors.white,
-      child: new Stack(
+      child: Stack(
         children: [
           Column(
             children: [
@@ -49,9 +51,9 @@ class _ExampleState extends State<ExampleSwiperInScrollView>
               ),
             ],
           ),
-          new Column(
+          Column(
             children: <Widget>[
-              new Row(
+              Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     Column(
@@ -59,18 +61,18 @@ class _ExampleState extends State<ExampleSwiperInScrollView>
                         Container(
                           padding: const EdgeInsets.only(top: 40.0),
                         ),
-                        new ScaleTransition(
+                        ScaleTransition(
                           scale: _animation10,
                           alignment: FractionalOffset.center,
                         ),
                       ],
                     ),
-                    new Column(
+                    Column(
                       children: <Widget>[
                         Container(
                           padding: const EdgeInsets.only(top: 160.0),
                         ),
-                        new ScaleTransition(
+                        ScaleTransition(
                           scale: _animation11,
                           alignment: FractionalOffset.center,
                         ),
@@ -84,7 +86,7 @@ class _ExampleState extends State<ExampleSwiperInScrollView>
                         Container(
                           padding: const EdgeInsets.only(top: 160.0),
                         ),
-                        new ScaleTransition(
+                        ScaleTransition(
                           scale: _animation12,
                           alignment: FractionalOffset.center,
                         ),
@@ -95,7 +97,7 @@ class _ExampleState extends State<ExampleSwiperInScrollView>
                         Container(
                           padding: const EdgeInsets.only(top: 40.0),
                         ),
-                        new ScaleTransition(
+                        ScaleTransition(
                           scale: _animation13,
                           alignment: FractionalOffset.center,
                         ),
@@ -114,16 +116,16 @@ class _ExampleState extends State<ExampleSwiperInScrollView>
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
+    return Container(
       color: Theme.of(context).primaryColorLight,
       child: CustomScrollView(
         slivers: <Widget>[
           SliverList(
-              delegate: new SliverChildBuilderDelegate((c, i) {
-            return new Column(
+              delegate: SliverChildBuilderDelegate((c, i) {
+            return Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                new SizedBox(
+                SizedBox(
                   height: 100.0,
                   child: Swiper(
                     scale: 0.8,
@@ -135,10 +137,10 @@ class _ExampleState extends State<ExampleSwiperInScrollView>
                       );
                     },
                     itemCount: 10,
-                    pagination: new SwiperPagination(),
+                    pagination: const SwiperPagination(),
                   ),
                 ),
-                new SizedBox(
+                SizedBox(
                   height: 100.0,
                   child: Swiper(
                       scale: 0.8,
@@ -149,11 +151,11 @@ class _ExampleState extends State<ExampleSwiperInScrollView>
                           child: Text("$i"),
                         );
                       },
-                      pagination: new SwiperPagination(
+                      pagination: const SwiperPagination(
                           builder: SwiperPagination.fraction),
                       itemCount: 0),
                 ),
-                new SizedBox(
+                SizedBox(
                   height: 100.0,
                   child: Swiper(
                       scale: 0.8,
@@ -164,58 +166,56 @@ class _ExampleState extends State<ExampleSwiperInScrollView>
                           child: Text("$i"),
                         );
                       },
-                      pagination: new SwiperPagination(
+                      pagination: const SwiperPagination(
                           builder: SwiperPagination.fraction),
                       itemCount: 10000),
                 ),
-                new SizedBox(
+                SizedBox(
                   height: 100.0,
                   child: Swiper(
                       outer: true,
                       scale: 0.8,
                       fade: 0.8,
                       itemBuilder: (c, i) {
-                        return new Container(
+                        return Container(
                           color: Colors.grey,
                           child: Text("$i"),
                         );
                       },
-                      pagination: SwiperPagination(),
+                      pagination: const SwiperPagination(),
                       itemCount: 10),
                 ),
-                new Text("Image from network"),
-                new SizedBox(
+                const Text("Image from network"),
+                SizedBox(
                   height: 300.0,
-                  child: new Swiper(
+                  child: Swiper(
                     itemCount: 10,
                     itemBuilder: (BuildContext context, int index) {
-                      return new Image.network(
+                      return Image.network(
                           "https://ss3.baidu.com/9fo3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=87d6daed02f41bd5c553eef461d881a0/f9198618367adab4b025268587d4b31c8601e47b.jpg");
                     },
                   ),
                 ),
-                new SizedBox(
+                SizedBox(
                   height: 100.0,
-                  child: new Swiper(
+                  child: Swiper(
                       outer: true,
                       scale: 0.8,
                       fade: 0.8,
                       itemBuilder: (c, i) {
-                        return new Card(
+                        return Card(
                           elevation: 2.0,
-                          child: new Stack(
+                          child: Stack(
                             alignment: AlignmentDirectional.center,
                             children: <Widget>[
-                              new Container(
-                                child: new Image.network(
-                                    "https://ss3.baidu.com/9fo3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=87d6daed02f41bd5c553eef461d881a0/f9198618367adab4b025268587d4b31c8601e47b.jpg"),
-                              ),
+                              Image.network(
+                                  "https://ss3.baidu.com/9fo3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=87d6daed02f41bd5c553eef461d881a0/f9198618367adab4b025268587d4b31c8601e47b.jpg"),
                               FractionalTranslation(
-                                translation: Offset(0.0, 0.0),
-                                child: new Container(
-                                  alignment: new FractionalOffset(0.0, 0.0),
-                                  decoration: new BoxDecoration(
-                                    border: new Border.all(
+                                translation: const Offset(0.0, 0.0),
+                                child: Container(
+                                  alignment: const FractionalOffset(0.0, 0.0),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
                                       color: Colors.lightBlue.withOpacity(0.5),
                                       width: 100.0,
                                     ),
@@ -223,35 +223,35 @@ class _ExampleState extends State<ExampleSwiperInScrollView>
                                   ),
                                 ),
                               ),
-                              new Container(
+                              Container(
                                 //padding: const EdgeInsets.only(bottom:10.0),
-                                margin: new EdgeInsets.all(140.0),
+                                margin: const EdgeInsets.all(140.0),
 
-                                child: Icon(Icons.location_on,
+                                child: const Icon(Icons.location_on,
                                     color: Colors.white, size: 25.0),
                               ),
                             ],
                           ),
                         );
                       },
-                      pagination:
-                          new SwiperPagination(alignment: Alignment.topCenter),
+                      pagination: const SwiperPagination(
+                          alignment: Alignment.topCenter),
                       itemCount: 10),
                 ),
-                new SizedBox(
+                SizedBox(
                   height: 400.0,
-                  child: new Swiper(
+                  child: Swiper(
                       outer: true,
                       itemBuilder: (c, i) {
                         return _buildDynamicCard();
                       },
-                      pagination:
-                          new SwiperPagination(alignment: Alignment.topCenter),
+                      pagination: const SwiperPagination(
+                          alignment: Alignment.topCenter),
                       itemCount: 10),
                 ),
-                new SizedBox(
+                SizedBox(
                   height: 100.0,
-                  child: new Swiper(
+                  child: Swiper(
                       outer: true,
                       fade: 0.8,
                       viewportFraction: 0.8,
@@ -262,8 +262,8 @@ class _ExampleState extends State<ExampleSwiperInScrollView>
                           child: Text("$i"),
                         );
                       },
-                      pagination:
-                          new SwiperPagination(alignment: Alignment.topCenter),
+                      pagination: const SwiperPagination(
+                          alignment: Alignment.topCenter),
                       itemCount: 10),
                 ),
               ],
